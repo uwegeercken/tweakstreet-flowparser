@@ -1968,11 +1968,11 @@
       "data": {
         "meta": {
           "name": "Calculator: update steps",
-          "showingComment": false,
+          "showingComment": true,
           "comment": {
             "markdown": {
               "text": {
-                "text": "",
+                "text": "#### INFO\n\nMain processing is down in this step.\nAll \"Run Flow\" steps from each file are manipulated to contain the absolute path and filename, so that the flows and steps can properly linked together\n- the data >> flowPath >> widgetData >> text node is changed to contain the filename only\n- a node \"path\" is added to the data >> flowPath >> widgetData node, which contains the absolute path\n- the result is a list of \"Run Flow\" steps and a list of other steps\n",
                 "syntax": "markdown",
                 "size": {
                   "width": "100%",
@@ -1981,12 +1981,12 @@
               },
               "size": {
                 "width": null,
-                "height": 160
+                "height": 203
               },
-              "view": "edit"
+              "view": "preview"
             },
             "editor": {
-              "collapsed": true
+              "collapsed": false
             }
           }
         },
@@ -2107,14 +2107,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)",
+                    "text": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)",
                     "size": {
                       "width": 0,
-                      "height": 36
+                      "height": 67
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)"
+                  "code": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)\n"
                 }
               },
               {
@@ -2123,10 +2123,10 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(steps) -> \nfor\n  step <- steps,\n  step_path: getStepPath(step),\n  isRelative: getIsRelative(step_path),\n  step_path_filename: getStepPathFilename(step_path),\n  step_path_path: getStepPathPath(step_path,isRelative),\n  adjusedItem: getAdjustedItem(step,step_path_filename),\n  fullPath: getFullPath(isRelative,step_path_path),\n  getUpdatedStep(step,fullPath)\n  \n\n\n\n\n\n",
+                    "text": "(steps) -> \nfor\n  step <- steps,\n  step_path: getStepPath(step),\n  isRelative: getIsRelative(step_path),\n  step_path_filename: getStepPathFilename(step_path),\n  step_path_path: getStepPathPath(step_path,isRelative),\n  adjusedItem: getAdjustedItem(step,step_path_filename),\n  fullPath: getFullPath(isRelative,step_path_path),\n  getUpdatedStep(step,fullPath)\n\n\n\n\n",
                     "size": {
                       "width": 0,
-                      "height": 220
+                      "height": 128
                     },
                     "syntax": "tweakflow"
                   },
