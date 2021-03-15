@@ -1,0 +1,1019 @@
+{
+  "type": "data-flow",
+  "appVersion": "1.14.4",
+  "properties": {
+    "meta": {
+      "comment": {
+        "markdown": {
+          "text": {
+            "text": "",
+            "syntax": "markdown",
+            "size": {
+              "width": "100%",
+              "height": "100%"
+            }
+          },
+          "size": {
+            "width": null,
+            "height": 160
+          },
+          "view": "edit"
+        },
+        "editor": {
+          "collapsed": true
+        }
+      },
+      "showingComment": true
+    },
+    "editor": {
+      "showParameters": true,
+      "showVariables": true,
+      "showServices": true,
+      "dialogWidth": "wide"
+    },
+    "imports": {
+      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\nimport json from 'tweakstreet/json';",
+      "size": {
+        "width": 0,
+        "height": 102
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "parameters": {
+      "parameters": {
+        "list": [
+          {
+            "name": "root_folder",
+            "description": "folder to scan for dataflows or controlflows",
+            "type": "any",
+            "defaultValue": {
+              "widgetType": "expression/string",
+              "widgetData": {
+                "interpolation": true,
+                "text": "/home/uwe/development/tweakstreet"
+              },
+              "code": "'/home/uwe/development/tweakstreet'"
+            }
+          }
+        ]
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "variables": {
+      "variables": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "services": {
+      "services": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.readfile_6099dfac-b0b0-4ab3-801d-5322666ac83f",
+      "name": "Read File: Dataflow",
+      "type": "com.twineworks.tweakstreet.library.steps.map.readfile",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Read File: Dataflow",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "fs": {
+          "widgetType": "expression/storage-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "path": {
+          "widgetType": "expression/field-value-ref",
+          "widgetData": {
+            "fieldSelect": {
+              "value": {
+                "gate": "in",
+                "name": "path"
+              }
+            }
+          },
+          "code": "::in.path"
+        },
+        "compression": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "expression/select/compression",
+            "value": "none"
+          },
+          "code": "'none'"
+        },
+        "charset": {
+          "widgetType": "expression/charset",
+          "widgetData": {
+            "value": "UTF-8"
+          },
+          "code": "'UTF-8'"
+        },
+        "textFileContent": {
+          "text": "",
+          "fetchButton": {
+            "value": "100"
+          },
+          "size": {
+            "width": 0,
+            "height": 180
+          },
+          "editor": {
+            "collapsed": true
+          }
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "content",
+                "type": "dict",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "json.parse(results.content)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "json.parse(results.content)"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showResultVariables": false,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 362,
+        "y": 202
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.calculator_a6a1e4c6-345c-4f04-9083-66898a8a8219",
+      "name": "Calculator: get steps",
+      "type": "com.twineworks.tweakstreet.library.steps.map.calculator",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Calculator: get steps",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "in.content[:steps]",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "in.content[:steps]"
+                }
+              },
+              {
+                "name": "number_of_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.size(steps)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.size(steps)"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 554,
+        "y": 202
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.input.getfiles_6a997fc8-9523-40c8-8a96-235af1360534",
+      "name": "Get Files",
+      "type": "com.twineworks.tweakstreet.library.steps.input.getfiles",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Get Files",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "fs": {
+          "widgetType": "expression/storage-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "path": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "flow.params.root_folder",
+            "size": {
+              "width": 0,
+              "height": 36
+            },
+            "syntax": "tweakflow"
+          },
+          "code": "flow.params.root_folder"
+        },
+        "maxDepth": {
+          "widgetType": "expression/nil",
+          "widgetData": {},
+          "code": "nil"
+        },
+        "pattern": {
+          "widgetType": "expression/string",
+          "widgetData": {
+            "interpolation": true,
+            "text": "glob:**/*.{cfl,dfl}"
+          },
+          "code": "'glob:**/*.{cfl,dfl}'"
+        },
+        "filter": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "",
+            "size": {
+              "width": 0,
+              "height": 95
+            },
+            "syntax": "tweakflow"
+          },
+          "code": "nil"
+        },
+        "matchFiles": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "matchFolders": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": false
+          },
+          "code": "false"
+        },
+        "onError": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "com.twineworks.tweakstreet.library.steps.input.getfiles/onError",
+            "value": "warn"
+          },
+          "code": "'warn'"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "path",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.path"
+                  },
+                  "code": "::results.path"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "strings.substring(path,0,strings.length(path) - strings.length(filename) -1)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "strings.substring(path,0,strings.length(path) - strings.length(filename) -1)"
+                }
+              },
+              {
+                "name": "filename",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.name"
+                  },
+                  "code": "::results.name"
+                }
+              },
+              {
+                "name": "isDataflow",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "strings.ends_with?(filename,\".dfl\")",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "strings.ends_with?(filename,\".dfl\")"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showResultVariables": true,
+          "showOutputFields": true,
+          "dialogWidth": "stretch"
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 186,
+        "y": 202
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.pickfields_486d6668-321e-4de1-b283-e65623a69d55",
+      "name": "Pick Fields",
+      "type": "com.twineworks.tweakstreet.library.steps.map.pickfields",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Pick Fields",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "mode": {
+          "value": "whitelist"
+        },
+        "fieldRefs": {
+          "fieldRefs": {
+            "list": [
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "path"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "path_only"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "filename"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "isDataflow"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "number_of_steps"
+                  }
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {},
+        "model": {}
+      },
+      "pos": {
+        "x": 746,
+        "y": 202
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.features.core.steps.serialize_6f5398e1-bff3-408b-bc8e-a68009902084",
+      "name": "Serialize",
+      "type": "com.twineworks.tweakstreet.features.core.steps.serialize",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Serialize",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "writeFields": {
+          "writeFields": {
+            "list": [
+              {
+                "name": "path",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "path"
+                      }
+                    }
+                  },
+                  "code": "::in.path"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "path_only"
+                      }
+                    }
+                  },
+                  "code": "::in.path_only"
+                }
+              },
+              {
+                "name": "filename",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "filename"
+                      }
+                    }
+                  },
+                  "code": "::in.filename"
+                }
+              },
+              {
+                "name": "isDataflow",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "isDataflow"
+                      }
+                    }
+                  },
+                  "code": "::in.isDataflow"
+                }
+              },
+              {
+                "name": "steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "steps"
+                      }
+                    }
+                  },
+                  "code": "::in.steps"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "fs": {
+          "widgetType": "expression/storage-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "file": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "./data/flows.bin",
+            "dialogIntent": "saveFile"
+          },
+          "code": "'./data/flows.bin'"
+        },
+        "whenFileExists": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "com.twineworks.tweakstreet.features.core.steps.serialize/whenFileExists",
+            "value": "truncate"
+          },
+          "code": "'truncate'"
+        },
+        "editor": {
+          "showEntryVariables": false,
+          "showResultVariables": false,
+          "showWriteFields": true,
+          "showOutputFields": false
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 922,
+        "y": 202
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.logger_6e6731d9-d7ed-4848-b7f6-059be2036cee",
+      "name": "Logger",
+      "type": "com.twineworks.tweakstreet.library.steps.map.logger",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Logger",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "message": {
+          "widgetType": "expression/text",
+          "widgetData": {
+            "text": "Current Row:",
+            "size": {
+              "width": 0,
+              "height": 68
+            },
+            "syntax": "text",
+            "lineSeparator": "\n",
+            "interpolation": true
+          },
+          "code": "'Current Row:'"
+        },
+        "logValues": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": [
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
+                        "text": "path"
+                      },
+                      "code": "'path'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "path"
+                          }
+                        }
+                      },
+                      "code": "::in.path"
+                    }
+                  }
+                },
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
+                        "text": "number_of_steps"
+                      },
+                      "code": "'number_of_steps'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "number_of_steps"
+                          }
+                        }
+                      },
+                      "code": "::in.number_of_steps"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}]"
+        },
+        "editor": {
+          "showEntryVariables": false
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 938,
+        "y": 346
+      }
+    }
+  ],
+  "hops": [
+    {
+      "id": "b56174f2-667d-4eeb-8681-b62c04cc646c",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.readfile_6099dfac-b0b0-4ab3-801d-5322666ac83f",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.calculator_a6a1e4c6-345c-4f04-9083-66898a8a8219",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "7df6b3e0-18b3-43c2-8014-670b16162666",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.input.getfiles_6a997fc8-9523-40c8-8a96-235af1360534",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.readfile_6099dfac-b0b0-4ab3-801d-5322666ac83f",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "6968e484-9f6c-479c-b88b-dea8824cefa6",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.calculator_a6a1e4c6-345c-4f04-9083-66898a8a8219",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.pickfields_486d6668-321e-4de1-b283-e65623a69d55",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "3412468c-fb71-4276-9d78-20ac9ffe2bfa",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.pickfields_486d6668-321e-4de1-b283-e65623a69d55",
+      "toStep": "com.twineworks.tweakstreet.features.core.steps.serialize_6f5398e1-bff3-408b-bc8e-a68009902084",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "b5d2c7f2-d14c-45e8-b516-718a27b696a9",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.pickfields_486d6668-321e-4de1-b283-e65623a69d55",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.logger_6e6731d9-d7ed-4848-b7f6-059be2036cee",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    }
+  ]
+}

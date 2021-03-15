@@ -1,0 +1,571 @@
+{
+  "type": "control-flow",
+  "appVersion": "1.14.4",
+  "properties": {
+    "meta": {
+      "comment": {
+        "markdown": {
+          "text": {
+            "text": "#### INFO\n\nThis controlflow is processing all dataflows and controlflows which were found in the given folder (and subfolders). \nThe idea is to show controlflows, dataflows, steps and their relationships -specifically which step types are \n\nThe data is sent to a Neo4j database and stored as nodes:\n- Controlfows (.cfl files)\n- Dataflows (.dfl files)\n- Steps\n\nSteps is a distinct list of steps (not all stpes found). Relations are created between\n- Dataflows and Steps\n- Controlflows and Steps\n- Controlflows and other controlflows\n\n\n\n",
+            "syntax": "markdown",
+            "size": {
+              "width": "100%",
+              "height": "100%"
+            }
+          },
+          "size": {
+            "width": null,
+            "height": 324
+          },
+          "view": "edit"
+        },
+        "editor": {
+          "collapsed": false
+        }
+      },
+      "showingComment": true
+    },
+    "editor": {
+      "showParameters": true,
+      "showVariables": true,
+      "showServices": true,
+      "dialogWidth": "wide"
+    },
+    "imports": {
+      "code": "# import the standard library\n# import core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
+      "size": {
+        "width": 0,
+        "height": 102
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "parameters": {
+      "parameters": {
+        "list": [
+          {
+            "name": "root_folder",
+            "description": "folder to scan for dataflows or controlflows",
+            "type": "any",
+            "defaultValue": {
+              "widgetType": "expression/string",
+              "widgetData": {
+                "interpolation": true,
+                "text": "/run/media/uwe/5BDB-2357/development/tweakstreet"
+              },
+              "code": "'/run/media/uwe/5BDB-2357/development/tweakstreet'"
+            }
+          }
+        ]
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "variables": {
+      "variables": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "services": {
+      "services": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "start",
+      "name": "Start",
+      "type": "com.twineworks.tweakstreet.library.steps.start.start",
+      "data": {
+        "meta": {
+          "name": "Start"
+        }
+      },
+      "pos": {
+        "x": 182,
+        "y": 182
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.runflow_468c3ad6-1c68-4e64-8204-7de8fce763b2",
+      "name": "Run Flow: get data",
+      "type": "com.twineworks.tweakstreet.library.steps.map.runflow",
+      "data": {
+        "meta": {
+          "name": "Run Flow: get data",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "flowPath": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "./parse_flows-00.dfl",
+            "dialogIntent": "openFile"
+          },
+          "code": "'./parse_flows-00.dfl'"
+        },
+        "params": {
+          "widgetType": "expression/dict",
+          "widgetData": {
+            "table": {
+              "list": [
+                {
+                  "key": {
+                    "widgetType": "expression/string",
+                    "widgetData": {
+                      "interpolation": true,
+                      "text": "root_folder"
+                    },
+                    "code": "'root_folder'"
+                  },
+                  "value": {
+                    "widgetType": "expression/string",
+                    "widgetData": {
+                      "interpolation": true,
+                      "text": "${flow.params.root_folder}"
+                    },
+                    "code": "let {\n  string interpolation_0: flow.params.root_folder;\n}\ninterpolation_0"
+                  }
+                }
+              ]
+            }
+          },
+          "code": "{\n  'root_folder' let {\n  string interpolation_0: flow.params.root_folder;\n}\ninterpolation_0\n}"
+        },
+        "propagateErrors": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "success",
+                "type": "boolean",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_success"
+                  },
+                  "code": "::results.flow_success"
+                }
+              },
+              {
+                "name": "result",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_result"
+                  },
+                  "code": "::results.flow_result"
+                }
+              },
+              {
+                "name": "error",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_error"
+                  },
+                  "code": "::results.flow_error"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": false,
+          "showResultVariables": false,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 410,
+        "y": 186
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.runflow_356c3956-694a-46ca-90ef-66b2225fe47a",
+      "name": "Run Flow: Controlflows",
+      "type": "com.twineworks.tweakstreet.library.steps.map.runflow",
+      "data": {
+        "meta": {
+          "name": "Run Flow: Controlflows",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "flowPath": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "./parse_flows-02.dfl",
+            "dialogIntent": "openFile"
+          },
+          "code": "'./parse_flows-02.dfl'"
+        },
+        "params": {
+          "widgetType": "expression/dict",
+          "widgetData": {
+            "table": {
+              "list": []
+            }
+          },
+          "code": "{}"
+        },
+        "propagateErrors": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "success",
+                "type": "boolean",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_success"
+                  },
+                  "code": "::results.flow_success"
+                }
+              },
+              {
+                "name": "result",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_result"
+                  },
+                  "code": "::results.flow_result"
+                }
+              },
+              {
+                "name": "error",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_error"
+                  },
+                  "code": "::results.flow_error"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": false,
+          "showResultVariables": false,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 922,
+        "y": 186
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.end.finish_6a8ae689-6404-4cc5-beb5-e248324574c3",
+      "name": "Finish",
+      "type": "com.twineworks.tweakstreet.library.steps.end.finish",
+      "data": {
+        "meta": {
+          "name": "Finish",
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": ""
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "editor": {
+                "collapsed": true
+              }
+            }
+          },
+          "showingComment": false
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "result": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "row"
+          },
+          "code": "row"
+        },
+        "editor": {
+          "showEntryVariables": false
+        }
+      },
+      "pos": {
+        "x": 1162,
+        "y": 186
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.runflow_96370616-cb8c-4c6a-aecc-44cc05201fda",
+      "name": "Run Flow: Dataflows",
+      "type": "com.twineworks.tweakstreet.library.steps.map.runflow",
+      "data": {
+        "meta": {
+          "name": "Run Flow: Dataflows",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "flowPath": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "./parse_flows-01.dfl",
+            "dialogIntent": "openFile"
+          },
+          "code": "'./parse_flows-01.dfl'"
+        },
+        "params": {
+          "widgetType": "expression/dict",
+          "widgetData": {
+            "table": {
+              "list": []
+            }
+          },
+          "code": "{}"
+        },
+        "propagateErrors": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "success",
+                "type": "boolean",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_success"
+                  },
+                  "code": "::results.flow_success"
+                }
+              },
+              {
+                "name": "result",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_result"
+                  },
+                  "code": "::results.flow_result"
+                }
+              },
+              {
+                "name": "error",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.flow_error"
+                  },
+                  "code": "::results.flow_error"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": false,
+          "showResultVariables": false,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 666,
+        "y": 186
+      }
+    }
+  ],
+  "hops": [
+    {
+      "id": "9c6ae623-dcf9-410d-8bc8-6902765a75ea",
+      "fromStep": "start",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.runflow_468c3ad6-1c68-4e64-8204-7de8fce763b2",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false
+    },
+    {
+      "id": "5b510d65-0b6b-4032-b4ba-a30eb0b48593",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.runflow_356c3956-694a-46ca-90ef-66b2225fe47a",
+      "toStep": "com.twineworks.tweakstreet.library.steps.end.finish_6a8ae689-6404-4cc5-beb5-e248324574c3",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false
+    },
+    {
+      "id": "3156b4b2-8a7f-44ac-ae66-00ea4b03d4fb",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.runflow_96370616-cb8c-4c6a-aecc-44cc05201fda",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.runflow_356c3956-694a-46ca-90ef-66b2225fe47a",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false
+    },
+    {
+      "id": "6d0df0ce-fa77-48a5-b3af-ee9635e3d366",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.runflow_468c3ad6-1c68-4e64-8204-7de8fce763b2",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.runflow_96370616-cb8c-4c6a-aecc-44cc05201fda",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false
+    }
+  ]
+}

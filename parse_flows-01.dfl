@@ -1,0 +1,1175 @@
+{
+  "type": "data-flow",
+  "appVersion": "1.14.4",
+  "properties": {
+    "meta": {
+      "comment": {
+        "markdown": {
+          "text": {
+            "text": "",
+            "syntax": "markdown",
+            "size": {
+              "width": "100%",
+              "height": "100%"
+            }
+          },
+          "size": {
+            "width": null,
+            "height": 160
+          },
+          "view": "edit"
+        },
+        "editor": {
+          "collapsed": true
+        }
+      },
+      "showingComment": true
+    },
+    "editor": {
+      "showParameters": true,
+      "showVariables": true,
+      "showServices": true,
+      "dialogWidth": "wide"
+    },
+    "imports": {
+      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
+      "size": {
+        "width": 0,
+        "height": 102
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "parameters": {
+      "parameters": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "variables": {
+      "variables": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    },
+    "services": {
+      "services": {
+        "list": []
+      },
+      "editor": {
+        "collapsed": false
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.httprequest_2659ff79-e22e-4907-91d2-696c1f34610f",
+      "name": "Neo4j: merge Steps dataflow",
+      "type": "com.twineworks.tweakstreet.library.steps.map.httprequest",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Neo4j: merge Steps dataflow",
+          "showingComment": true,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": [
+              {
+                "name": "toJSON",
+                "type": "function",
+                "value": {
+                  "widgetType": "expression/encode-json",
+                  "widgetData": {
+                    "prettyPrint": {
+                      "widgetType": "expression/checkbox-boolean",
+                      "widgetData": {
+                        "value": true
+                      },
+                      "code": "true"
+                    },
+                    "datetimeFormatter": {
+                      "widgetType": "expression/format-datetime",
+                      "widgetData": {
+                        "pattern": {
+                          "widgetType": "expression/datetime-pattern",
+                          "widgetData": {
+                            "value": "uuuu-MM-dd'T'HH:mm:ss.SSS[ZZZZZ]"
+                          },
+                          "code": "'uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]'"
+                        },
+                        "locale": {
+                          "widgetType": "expression/locale",
+                          "widgetData": {
+                            "value": "en-US"
+                          },
+                          "code": "'en-US'"
+                        },
+                        "nilValue": {
+                          "widgetType": "expression/nil",
+                          "widgetData": {},
+                          "code": "nil"
+                        },
+                        "editor": {
+                          "collapsed": true
+                        },
+                        "model": {}
+                      },
+                      "code": "let {\n  make_formatter: (string pattern, string locale, string nilValue) -> function via {:class 'com.twineworks.tweakstreet.library.conversion.Formatters$datetime_formatter'};\n}\nmake_formatter('uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]', 'en-US', nil)\n"
+                    },
+                    "editor": {
+                      "collapsed": true
+                    },
+                    "model": {}
+                  },
+                  "code": "let {\n  pretty_print: true;\n  datetime_formatter: let {\n  make_formatter: (string pattern, string locale, string nilValue) -> function via {:class 'com.twineworks.tweakstreet.library.conversion.Formatters$datetime_formatter'};\n}\nmake_formatter('uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]', 'en-US', nil)\n;\n  make_encoder: (boolean pretty_print, function date_encoder, function binary_encoder) -> function via {:class 'com.twineworks.tweakstreet.library.json.Json$encoder'};\n}\nmake_encoder(pretty_print, datetime_formatter, nil)\n"
+                }
+              },
+              {
+                "name": "statement",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/text",
+                  "widgetData": {
+                    "text": "UNWIND $steps AS step\n  MATCH (d:Dataflow {name: $filename, path: $path})\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  MERGE (d)-[:uses]->(s)",
+                    "size": {
+                      "width": 0,
+                      "height": 111
+                    },
+                    "syntax": "ruby",
+                    "lineSeparator": "\n",
+                    "interpolation": true
+                  },
+                  "code": "'UNWIND $steps AS step\n  MATCH (d:Dataflow {name: $filename, path: $path})\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  MERGE (d)-[:uses]->(s)'"
+                }
+              },
+              {
+                "name": "parameters",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/dict",
+                  "widgetData": {
+                    "table": {
+                      "list": [
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "steps"
+                            },
+                            "code": "'steps'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "steps"
+                                }
+                              }
+                            },
+                            "code": "::in.steps"
+                          }
+                        },
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "filename"
+                            },
+                            "code": "'filename'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "filename"
+                                }
+                              }
+                            },
+                            "code": "::in.filename"
+                          }
+                        },
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "path"
+                            },
+                            "code": "'path'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "path_only"
+                                }
+                              }
+                            },
+                            "code": "::in.path_only"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "code": "{\n  'steps' ::in.steps,\n  'filename' ::in.filename,\n  'path' ::in.path_only\n}"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "tabs": {},
+        "method": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "expression/select/httpMethod",
+            "value": "POST"
+          },
+          "code": "'POST'"
+        },
+        "url": {
+          "widgetType": "expression/string",
+          "widgetData": {
+            "interpolation": true,
+            "text": "http://localhost:7474/db/neo4j/tx/commit"
+          },
+          "code": "'http://localhost:7474/db/neo4j/tx/commit'"
+        },
+        "urlParameters": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "authUser": {
+          "widgetType": "expression/string",
+          "widgetData": {
+            "interpolation": true,
+            "text": "neo4j"
+          },
+          "code": "'neo4j'"
+        },
+        "authPassword": {
+          "widgetType": "expression/password",
+          "widgetData": {
+            "text": "encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q==",
+            "encrypted": true
+          },
+          "code": "'encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q=='"
+        },
+        "oauth": {
+          "widgetType": "expression/oauth-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "headers": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "cookies": {
+          "widgetType": "expression/field-value-ref",
+          "widgetData": {
+            "fieldSelect": {
+              "value": null
+            }
+          },
+          "code": "nil"
+        },
+        "contentType": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "expression/select/httpContentType",
+            "value": "application/json"
+          },
+          "code": "'application/json'"
+        },
+        "bodyParameters": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "body": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "vars.toJSON({\r\n  :statements [{\r\n    :statement vars.statement,\r\n    :parameters vars.parameters\r\n  }]\r\n})",
+            "size": {
+              "width": 0,
+              "height": 167
+            },
+            "syntax": "tweakflow"
+          },
+          "code": "vars.toJSON({\r\n  :statements [{\r\n    :statement vars.statement,\r\n    :parameters vars.parameters\r\n  }]\r\n})"
+        },
+        "followRedirects": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "bodyCapture": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "com.twineworks.tweakstreet.library.steps.map.httprequest/bodyCapture",
+            "value": "capture_string"
+          },
+          "code": "'capture_string'"
+        },
+        "saveAsFile": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "",
+            "dialogIntent": "openFile"
+          },
+          "code": "''"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": [
+              {
+                "name": "response",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.response_json"
+                  },
+                  "code": "::results.response_json"
+                }
+              },
+              {
+                "name": "ensure_success",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "if response[:errors] \n  throw [\"error importing steps\", response]\nelse\n  :ok",
+                    "size": {
+                      "width": 0,
+                      "height": 101
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "if response[:errors] \n  throw [\"error importing steps\", response]\nelse\n  :ok"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showResultVariables": true,
+          "showOutputFields": true,
+          "dialogWidth": "wide"
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 890,
+        "y": 154
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.httprequest_1626d67d-c84b-4c63-8b7e-e854fec0a13b",
+      "name": "Neo4j: create Dataflow",
+      "type": "com.twineworks.tweakstreet.library.steps.map.httprequest",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Neo4j: create Dataflow",
+          "showingComment": true,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": [
+              {
+                "name": "toJSON",
+                "type": "function",
+                "value": {
+                  "widgetType": "expression/encode-json",
+                  "widgetData": {
+                    "prettyPrint": {
+                      "widgetType": "expression/checkbox-boolean",
+                      "widgetData": {
+                        "value": true
+                      },
+                      "code": "true"
+                    },
+                    "datetimeFormatter": {
+                      "widgetType": "expression/format-datetime",
+                      "widgetData": {
+                        "pattern": {
+                          "widgetType": "expression/datetime-pattern",
+                          "widgetData": {
+                            "value": "uuuu-MM-dd'T'HH:mm:ss.SSS[ZZZZZ]"
+                          },
+                          "code": "'uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]'"
+                        },
+                        "locale": {
+                          "widgetType": "expression/locale",
+                          "widgetData": {
+                            "value": "en-US"
+                          },
+                          "code": "'en-US'"
+                        },
+                        "nilValue": {
+                          "widgetType": "expression/nil",
+                          "widgetData": {},
+                          "code": "nil"
+                        },
+                        "editor": {
+                          "collapsed": true
+                        },
+                        "model": {}
+                      },
+                      "code": "let {\n  make_formatter: (string pattern, string locale, string nilValue) -> function via {:class 'com.twineworks.tweakstreet.library.conversion.Formatters$datetime_formatter'};\n}\nmake_formatter('uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]', 'en-US', nil)\n"
+                    },
+                    "editor": {
+                      "collapsed": true
+                    },
+                    "model": {}
+                  },
+                  "code": "let {\n  pretty_print: true;\n  datetime_formatter: let {\n  make_formatter: (string pattern, string locale, string nilValue) -> function via {:class 'com.twineworks.tweakstreet.library.conversion.Formatters$datetime_formatter'};\n}\nmake_formatter('uuuu-MM-dd''T''HH:mm:ss.SSS[ZZZZZ]', 'en-US', nil)\n;\n  make_encoder: (boolean pretty_print, function date_encoder, function binary_encoder) -> function via {:class 'com.twineworks.tweakstreet.library.json.Json$encoder'};\n}\nmake_encoder(pretty_print, datetime_formatter, nil)\n"
+                }
+              },
+              {
+                "name": "statement",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/text",
+                  "widgetData": {
+                    "text": "MERGE (d:Dataflow {name: $filename, path: $path})\n \n",
+                    "size": {
+                      "width": 0,
+                      "height": 44
+                    },
+                    "syntax": "ruby",
+                    "lineSeparator": "\n",
+                    "interpolation": true
+                  },
+                  "code": "'MERGE (d:Dataflow {name: $filename, path: $path})\n \n'"
+                }
+              },
+              {
+                "name": "parameters",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/dict",
+                  "widgetData": {
+                    "table": {
+                      "list": [
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "filename"
+                            },
+                            "code": "'filename'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "filename"
+                                }
+                              }
+                            },
+                            "code": "::in.filename"
+                          }
+                        },
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "path"
+                            },
+                            "code": "'path'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "path_only"
+                                }
+                              }
+                            },
+                            "code": "::in.path_only"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "code": "{\n  'filename' ::in.filename,\n  'path' ::in.path_only\n}"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "tabs": {},
+        "method": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "expression/select/httpMethod",
+            "value": "POST"
+          },
+          "code": "'POST'"
+        },
+        "url": {
+          "widgetType": "expression/string",
+          "widgetData": {
+            "interpolation": true,
+            "text": "http://localhost:7474/db/neo4j/tx/commit"
+          },
+          "code": "'http://localhost:7474/db/neo4j/tx/commit'"
+        },
+        "urlParameters": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "authUser": {
+          "widgetType": "expression/string",
+          "widgetData": {
+            "interpolation": true,
+            "text": "neo4j"
+          },
+          "code": "'neo4j'"
+        },
+        "authPassword": {
+          "widgetType": "expression/password",
+          "widgetData": {
+            "text": "encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q==",
+            "encrypted": true
+          },
+          "code": "'encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q=='"
+        },
+        "oauth": {
+          "widgetType": "expression/oauth-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "headers": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "cookies": {
+          "widgetType": "expression/field-value-ref",
+          "widgetData": {
+            "fieldSelect": {
+              "value": null
+            }
+          },
+          "code": "nil"
+        },
+        "contentType": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "expression/select/httpContentType",
+            "value": "application/json"
+          },
+          "code": "'application/json'"
+        },
+        "bodyParameters": {
+          "widgetType": "expression/data-grid",
+          "widgetData": {
+            "fields": [
+              {
+                "id": "name",
+                "name": "name"
+              },
+              {
+                "id": "value",
+                "name": "value"
+              }
+            ],
+            "gen": {
+              "as": "rows",
+              "of": "dict",
+              "meta": false
+            },
+            "table": {
+              "list": []
+            }
+          },
+          "code": "[]"
+        },
+        "body": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "vars.toJSON({\r\n  :statements [{\r\n    :statement vars.statement,\r\n    :parameters vars.parameters\r\n  }]\r\n})",
+            "size": {
+              "width": 0,
+              "height": 141
+            },
+            "syntax": "tweakflow"
+          },
+          "code": "vars.toJSON({\r\n  :statements [{\r\n    :statement vars.statement,\r\n    :parameters vars.parameters\r\n  }]\r\n})"
+        },
+        "followRedirects": {
+          "widgetType": "expression/checkbox-boolean",
+          "widgetData": {
+            "value": true
+          },
+          "code": "true"
+        },
+        "bodyCapture": {
+          "widgetType": "expression/select",
+          "widgetData": {
+            "family": "com.twineworks.tweakstreet.library.steps.map.httprequest/bodyCapture",
+            "value": "capture_string"
+          },
+          "code": "'capture_string'"
+        },
+        "saveAsFile": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "",
+            "dialogIntent": "openFile"
+          },
+          "code": "''"
+        },
+        "resultVariables": {
+          "variables": {
+            "list": [
+              {
+                "name": "response",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.response_json"
+                  },
+                  "code": "::results.response_json"
+                }
+              },
+              {
+                "name": "ensure_success",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "if response[:errors] \n  throw [\"error importing dataflows\", response]\nelse\n  :ok",
+                    "size": {
+                      "width": 0,
+                      "height": 101
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "if response[:errors] \n  throw [\"error importing dataflows\", response]\nelse\n  :ok"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showResultVariables": true,
+          "showOutputFields": true,
+          "dialogWidth": "wide"
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 634,
+        "y": 154
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.bool.filter_b80950f9-0244-4df7-877c-cc1b8f402680",
+      "name": "Filter",
+      "type": "com.twineworks.tweakstreet.library.steps.bool.filter",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Filter",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "condition": {
+          "widgetType": "expression/code",
+          "widgetData": {
+            "text": "in.isDataflow",
+            "size": {
+              "width": 0,
+              "height": 36
+            },
+            "syntax": "tweakflow"
+          },
+          "code": "in.isDataflow"
+        },
+        "editor": {
+          "showEntryVariables": false
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 394,
+        "y": 154
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.features.core.steps.deserialize_9386bb76-0136-4bde-a6ab-00744e22c576",
+      "name": "Deserialize",
+      "type": "com.twineworks.tweakstreet.features.core.steps.deserialize",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Deserialize",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "readFields": {
+          "readFields": {
+            "list": [
+              {
+                "name": "path",
+                "type": "string",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "path"
+                  },
+                  "code": "'path'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "path_only"
+                  },
+                  "code": "'path_only'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "filename",
+                "type": "string",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "filename"
+                  },
+                  "code": "'filename'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "isDataflow",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "isDataflow"
+                  },
+                  "code": "'isDataflow'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "steps",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "steps"
+                  },
+                  "code": "'steps'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "resultVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "fs": {
+          "widgetType": "expression/storage-ref",
+          "widgetData": {
+            "name": ""
+          },
+          "code": "nil"
+        },
+        "file": {
+          "widgetType": "expression/local-file",
+          "widgetData": {
+            "interpolation": true,
+            "text": "./data/flows.bin",
+            "dialogIntent": "openFile"
+          },
+          "code": "'./data/flows.bin'"
+        },
+        "editor": {
+          "showEntryVariables": false,
+          "showResultVariables": false,
+          "showWriteFields": true,
+          "showOutputFields": false
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 170,
+        "y": 154
+      }
+    }
+  ],
+  "hops": [
+    {
+      "id": "f049a539-5d6b-4c64-b96d-ea730998aa25",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_1626d67d-c84b-4c63-8b7e-e854fec0a13b",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_2659ff79-e22e-4907-91d2-696c1f34610f",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "35c4a4f5-282f-4323-83a6-720d3f504d42",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.bool.filter_b80950f9-0244-4df7-877c-cc1b8f402680",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_1626d67d-c84b-4c63-8b7e-e854fec0a13b",
+      "fromGate": "yes",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "40798512-87e1-421b-a369-113b0c55dd3f",
+      "fromStep": "com.twineworks.tweakstreet.features.core.steps.deserialize_9386bb76-0136-4bde-a6ab-00744e22c576",
+      "toStep": "com.twineworks.tweakstreet.library.steps.bool.filter_b80950f9-0244-4df7-877c-cc1b8f402680",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    }
+  ]
+}
