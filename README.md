@@ -10,8 +10,10 @@ Steps is a distinct list of steps (not all stpes found). Relations are created b
 - Dataflows and Steps
 - Controlflows and Steps
 - Controlflows and other controlflows
+- Controlflows and Services
+- Dataflows and Services
 
 You will need a Neo4j database running, so you can run the flow.
 
 
-last update: uwe geercken - 2021-03-15
+last update: uwe geercken - 2021-03-16
