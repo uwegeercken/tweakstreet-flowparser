@@ -52,9 +52,9 @@
               "widgetType": "expression/string",
               "widgetData": {
                 "interpolation": true,
-                "text": "/home/uwe/development/tweakstreet"
+                "text": "/run/media/uwe/5BDB-2357/development/tweakstreet/tweakstreet-flows"
               },
-              "code": "'/home/uwe/development/tweakstreet'"
+              "code": "'/run/media/uwe/5BDB-2357/development/tweakstreet/tweakstreet-flows'"
             }
           }
         ]
@@ -255,7 +255,40 @@
         },
         "entryVariables": {
           "variables": {
-            "list": []
+            "list": [
+              {
+                "name": "getTypes",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(steps) -> \nfor\n  step <- steps,\n  type: step[:type],\n  strings.substring(type,strings.last_index_of(type,'.')+1)\n  \n\n\n\n",
+                    "size": {
+                      "width": 0,
+                      "height": 126
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(steps) -> \nfor\n  step <- steps,\n  type: step[:type],\n  strings.substring(type,strings.last_index_of(type,'.')+1)"
+                }
+              },
+              {
+                "name": "getServices",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(services) -> \nfor\n  service <- services,\n  service[:category]\n  \n  \n\n\n\n",
+                    "size": {
+                      "width": 0,
+                      "height": 99
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "((services) -> \nfor\n  service <- services,\n  service[:category])"
+                }
+              }
+            ]
           },
           "editor": {
             "collapsed": false
@@ -295,6 +328,86 @@
                   },
                   "code": "data.size(steps)"
                 }
+              },
+              {
+                "name": "unique_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.unique(entry_vars.getTypes(steps))",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.unique(entry_vars.getTypes(steps))"
+                }
+              },
+              {
+                "name": "number_of_unique_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.size(unique_steps)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.size(unique_steps)"
+                }
+              },
+              {
+                "name": "services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "in.content[:properties, :services, :services, :list]",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "in.content[:properties, :services, :services, :list]"
+                }
+              },
+              {
+                "name": "unique_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.unique(entry_vars.getServices(services))",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.unique(entry_vars.getServices(services))"
+                }
+              },
+              {
+                "name": "number_of_unique_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.size(unique_services)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.size(unique_services)"
+                }
               }
             ]
           },
@@ -304,7 +417,8 @@
         },
         "editor": {
           "showEntryVariables": true,
-          "showOutputFields": true
+          "showOutputFields": true,
+          "dialogWidth": "wide"
         },
         "model": {}
       },
@@ -446,6 +560,17 @@
                 }
               },
               {
+                "name": "last_modified",
+                "type": "datetime",
+                "value": {
+                  "widgetType": "expression/result-ref",
+                  "widgetData": {
+                    "value": "::results.mtime"
+                  },
+                  "code": "::results.mtime"
+                }
+              },
+              {
                 "name": "path_only",
                 "type": "any",
                 "value": {
@@ -561,6 +686,14 @@
                 "field": {
                   "value": {
                     "gate": "in",
+                    "name": "last_modified"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
                     "name": "path_only"
                   }
                 }
@@ -594,6 +727,46 @@
                   "value": {
                     "gate": "in",
                     "name": "number_of_steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "unique_steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "number_of_unique_steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "services"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "unique_services"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "number_of_unique_services"
                   }
                 }
               }
@@ -691,6 +864,22 @@
                 }
               },
               {
+                "name": "last_modified",
+                "type": "datetime",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "last_modified"
+                      }
+                    }
+                  },
+                  "code": "::in.last_modified"
+                }
+              },
+              {
                 "name": "filename",
                 "type": "string",
                 "value": {
@@ -736,6 +925,102 @@
                     }
                   },
                   "code": "::in.steps"
+                }
+              },
+              {
+                "name": "number_of_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "number_of_steps"
+                      }
+                    }
+                  },
+                  "code": "::in.number_of_steps"
+                }
+              },
+              {
+                "name": "unique_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "unique_steps"
+                      }
+                    }
+                  },
+                  "code": "::in.unique_steps"
+                }
+              },
+              {
+                "name": "number_of_unique_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "number_of_unique_steps"
+                      }
+                    }
+                  },
+                  "code": "::in.number_of_unique_steps"
+                }
+              },
+              {
+                "name": "services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "services"
+                      }
+                    }
+                  },
+                  "code": "::in.services"
+                }
+              },
+              {
+                "name": "unique_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "unique_services"
+                      }
+                    }
+                  },
+                  "code": "::in.unique_services"
+                }
+              },
+              {
+                "name": "number_of_unique_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "number_of_unique_services"
+                      }
+                    }
+                  },
+                  "code": "::in.number_of_unique_services"
                 }
               }
             ]
@@ -844,7 +1129,7 @@
         "message": {
           "widgetType": "expression/text",
           "widgetData": {
-            "text": "Current Row:",
+            "text": "File:",
             "size": {
               "width": 0,
               "height": 68
@@ -853,7 +1138,7 @@
             "lineSeparator": "\n",
             "interpolation": true
           },
-          "code": "'Current Row:'"
+          "code": "'File:'"
         },
         "logValues": {
           "widgetType": "expression/data-grid",
@@ -922,11 +1207,59 @@
                       "code": "::in.number_of_steps"
                     }
                   }
+                },
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
+                        "text": "number_of_unique_steps"
+                      },
+                      "code": "'number_of_unique_steps'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "number_of_unique_steps"
+                          }
+                        }
+                      },
+                      "code": "::in.number_of_unique_steps"
+                    }
+                  }
+                },
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
+                        "text": "number_of_unique_services"
+                      },
+                      "code": "'number_of_unique_services'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "number_of_unique_services"
+                          }
+                        }
+                      },
+                      "code": "::in.number_of_unique_services"
+                    }
+                  }
                 }
               ]
             }
           },
-          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}]"
+          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}, {\n  :name 'number_of_unique_steps',\n  :value ::in.number_of_unique_steps\n}, {\n  :name 'number_of_unique_services',\n  :value ::in.number_of_unique_services\n}]"
         },
         "editor": {
           "showEntryVariables": false
