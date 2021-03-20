@@ -1,12 +1,12 @@
 {
   "type": "control-flow",
-  "appVersion": "1.14.4",
+  "appVersion": "1.15.0",
   "properties": {
     "meta": {
       "comment": {
         "markdown": {
           "text": {
-            "text": "#### INFO\n\nThis controlflow is processing all dataflows and controlflows which were found in the given folder (and subfolders). \nThe idea is to show controlflows, dataflows, steps and their relationships - specifically which step types are used.\n\nThe data is sent to a Neo4j database and stored as nodes:\n- Controlfows (.cfl files)\n- Dataflows (.dfl files)\n- Steps\n\nSteps is a distinct list of steps (not all stpes found). Relations are created between\n- Dataflows and Steps\n- Controlflows and Steps\n- Controlflows and other controlflows\n\n\n\n",
+            "text": "#### INFO\n\nThis controlflow is processing all dataflows and controlflows which were found in the given folder (and subfolders). \nThe idea is to show controlflows, dataflows, steps and their relationships - specifically which step types are used.\n\nThe data is sent to a Neo4j database and stored as nodes:\n- Controlfows (.cfl files)\n- Dataflows (.dfl files)\n- Steps\n- Services\n\nSteps is a distinct list of steps (not all stpes found). Relations are created between\n- Dataflows and Steps\n- Controlflows and Steps\n- Controlflows and other controlflows\n- Controlflows and Services\n- Dataflows and Services\n\n\n\n",
             "syntax": "markdown",
             "size": {
               "width": "100%",
@@ -15,7 +15,7 @@
           },
           "size": {
             "width": null,
-            "height": 324
+            "height": 353
           },
           "view": "edit"
         },

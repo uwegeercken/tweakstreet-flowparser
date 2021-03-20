@@ -257,6 +257,134 @@
           "variables": {
             "list": [
               {
+                "name": "getStepPath",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(step) -> data.get_in(step,$config.vars.step_key_flowpath)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(step) -> data.get_in(step,$config.vars.step_key_flowpath)"
+                }
+              },
+              {
+                "name": "getIsRelative",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(path) -> strings.starts_with?(path,'./')",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(path) -> strings.starts_with?(path,'./')"
+                }
+              },
+              {
+                "name": "getStepPathFilename",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(path) -> strings.substring(path,strings.last_index_of(path,'/')+1)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(path) -> strings.substring(path,strings.last_index_of(path,'/')+1)"
+                }
+              },
+              {
+                "name": "getStepPathPath",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(path, isRelative) -> if isRelative then\n  strings.substring(path,2,strings.last_index_of(path,'/'))\nelse\n  strings.substring(path,0,strings.last_index_of(path,'/'))",
+                    "size": {
+                      "width": 0,
+                      "height": 101
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(path, isRelative) -> if isRelative then\n  strings.substring(path,2,strings.last_index_of(path,'/'))\nelse\n  strings.substring(path,0,strings.last_index_of(path,'/'))"
+                }
+              },
+              {
+                "name": "getAdjustedItem",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(item,filename) -> data.put_in(item,$config.vars.step_key_flowpath, filename)\n",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(item,filename) -> data.put_in(item,$config.vars.step_key_flowpath, filename)"
+                }
+              },
+              {
+                "name": "getFullPath",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(isRelative, path) -> if !isRelative then\n  path\nelse\n  in.path_only .. path",
+                    "size": {
+                      "width": 0,
+                      "height": 98
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(isRelative, path) -> if !isRelative then\n  path\nelse\n  in.path_only .. path"
+                }
+              },
+              {
+                "name": "getUpdatedStep",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,$config.vars.step_key_flowpath_path, path)",
+                    "size": {
+                      "width": 0,
+                      "height": 67
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,$config.vars.step_key_flowpath_path, path)\n"
+                }
+              },
+              {
+                "name": "getUpdatedSteps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "(steps) -> \nfor\n  step <- steps,\n  step_path: getStepPath(step),\n  isRelative: getIsRelative(step_path),\n  step_path_filename: getStepPathFilename(step_path),\n  step_path_path: getStepPathPath(step_path,isRelative),\n  adjusedItem: getAdjustedItem(step,step_path_filename),\n  fullPath: getFullPath(isRelative,step_path_path),\n  getUpdatedStep(step,fullPath)\n\n\n\n\n",
+                    "size": {
+                      "width": 0,
+                      "height": 231
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "(steps) -> \nfor\n  step <- steps,\n  step_path: getStepPath(step),\n  isRelative: getIsRelative(step_path),\n  step_path_filename: getStepPathFilename(step_path),\n  step_path_path: getStepPathPath(step_path,isRelative),\n  adjusedItem: getAdjustedItem(step,step_path_filename),\n  fullPath: getFullPath(isRelative,step_path_path),\n  getUpdatedStep(step,fullPath)"
+                }
+              },
+              {
                 "name": "getTypes",
                 "type": "any",
                 "value": {
@@ -311,6 +439,38 @@
                     "syntax": "tweakflow"
                   },
                   "code": "data.get(in.content,$config.vars.data_flow_key_steps)"
+                }
+              },
+              {
+                "name": "runflow_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "entry_vars.getUpdatedSteps(data.filter(steps, (step) -> data.get(step,$config.vars.step_key_type) == $config.vars.step_type_runflow))",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "entry_vars.getUpdatedSteps(data.filter(steps, (step) -> data.get(step,$config.vars.step_key_type) == $config.vars.step_type_runflow))"
+                }
+              },
+              {
+                "name": "other_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.filter(steps, (step) -> data.get(step,$config.vars.step_key_type) != $config.vars.step_type_runflow)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.filter(steps, (step) -> data.get(step,$config.vars.step_key_type) != $config.vars.step_type_runflow)"
                 }
               },
               {
@@ -726,14 +886,6 @@
                 "field": {
                   "value": {
                     "gate": "in",
-                    "name": "version"
-                  }
-                }
-              },
-              {
-                "field": {
-                  "value": {
-                    "gate": "in",
                     "name": "isDataflow"
                   }
                 }
@@ -742,7 +894,39 @@
                 "field": {
                   "value": {
                     "gate": "in",
+                    "name": "content"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "version"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
                     "name": "steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "runflow_steps"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
+                    "name": "other_steps"
                   }
                 }
               },
@@ -928,22 +1112,6 @@
                 }
               },
               {
-                "name": "version",
-                "type": "string",
-                "value": {
-                  "widgetType": "expression/field-value-ref",
-                  "widgetData": {
-                    "fieldSelect": {
-                      "value": {
-                        "gate": "in",
-                        "name": "version"
-                      }
-                    }
-                  },
-                  "code": "::in.version"
-                }
-              },
-              {
                 "name": "isDataflow",
                 "type": "any",
                 "value": {
@@ -960,6 +1128,38 @@
                 }
               },
               {
+                "name": "content",
+                "type": "dict",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "content"
+                      }
+                    }
+                  },
+                  "code": "::in.content"
+                }
+              },
+              {
+                "name": "version",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "version"
+                      }
+                    }
+                  },
+                  "code": "::in.version"
+                }
+              },
+              {
                 "name": "steps",
                 "type": "any",
                 "value": {
@@ -973,6 +1173,38 @@
                     }
                   },
                   "code": "::in.steps"
+                }
+              },
+              {
+                "name": "runflow_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "runflow_steps"
+                      }
+                    }
+                  },
+                  "code": "::in.runflow_steps"
+                }
+              },
+              {
+                "name": "other_steps",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "other_steps"
+                      }
+                    }
+                  },
+                  "code": "::in.other_steps"
                 }
               },
               {
