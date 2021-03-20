@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.4",
+  "appVersion": "1.14.3",
   "properties": {
     "meta": {
       "comment": {
@@ -69,7 +69,7 @@
   "steps": [
     {
       "id": "com.twineworks.tweakstreet.library.steps.bool.filter_9014af37-436e-4bd0-8617-6bccab651df6",
-      "name": "Filter: Dataflow",
+      "name": "Filter: Controlflows only",
       "type": "com.twineworks.tweakstreet.library.steps.bool.filter",
       "instanceCount": {
         "widgetType": "expression/number",
@@ -80,7 +80,7 @@
       },
       "data": {
         "meta": {
-          "name": "Filter: Dataflow",
+          "name": "Filter: Controlflows only",
           "showingComment": false,
           "comment": {
             "markdown": {
@@ -114,14 +114,14 @@
         "condition": {
           "widgetType": "expression/code",
           "widgetData": {
-            "text": "in.isDataflow",
+            "text": "!in.isDataflow",
             "size": {
               "width": 0,
               "height": 36
             },
             "syntax": "tweakflow"
           },
-          "code": "in.isDataflow"
+          "code": "!in.isDataflow"
         },
         "editor": {
           "showEntryVariables": false
@@ -130,7 +130,7 @@
       },
       "pos": {
         "x": 314,
-        "y": 170
+        "y": 122
       }
     },
     {
@@ -228,7 +228,7 @@
                 "value": {
                   "widgetType": "expression/text",
                   "widgetData": {
-                    "text": "MERGE (c:Controlflow {name: $filename, path: $path})\n    set\n      c.unique_steps = $number_of_unique_steps,\n      c.unique_services = $number_of_unique_services,\n      c.last_modified = $last_modified\n\n",
+                    "text": "MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified\n\n",
                     "size": {
                       "width": 0,
                       "height": 159
@@ -237,7 +237,7 @@
                     "lineSeparator": "\n",
                     "interpolation": true
                   },
-                  "code": "'MERGE (c:Controlflow {name: $filename, path: $path})\n    set\n      c.unique_steps = $number_of_unique_steps,\n      c.unique_services = $number_of_unique_services,\n      c.last_modified = $last_modified\n\n'"
+                  "code": "'MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified\n\n'"
                 }
               },
               {
@@ -589,7 +589,7 @@
       },
       "pos": {
         "x": 554,
-        "y": 170
+        "y": 122
       }
     },
     {
@@ -1004,7 +1004,7 @@
       },
       "pos": {
         "x": 1082,
-        "y": 506
+        "y": 426
       }
     },
     {
@@ -1419,7 +1419,7 @@
       },
       "pos": {
         "x": 1082,
-        "y": 170
+        "y": 122
       }
     },
     {
@@ -1834,7 +1834,7 @@
       },
       "pos": {
         "x": 1082,
-        "y": 666
+        "y": 586
       }
     },
     {
@@ -1851,11 +1851,11 @@
       "data": {
         "meta": {
           "name": "Deserialize",
-          "showingComment": false,
+          "showingComment": true,
           "comment": {
             "markdown": {
               "text": {
-                "text": "",
+                "text": "##### INFO\n\nread the binary file that was produced in the first flow.",
                 "syntax": "markdown",
                 "size": {
                   "width": "100%",
@@ -1869,7 +1869,7 @@
               "view": "edit"
             },
             "editor": {
-              "collapsed": true
+              "collapsed": false
             }
           }
         },
@@ -1902,23 +1902,6 @@
                 }
               },
               {
-                "name": "path_only",
-                "type": "any",
-                "mapping": {
-                  "widgetType": "expression/string",
-                  "widgetData": {
-                    "interpolation": true,
-                    "text": "path_only"
-                  },
-                  "code": "'path_only'"
-                },
-                "conversion": {
-                  "widgetType": "expression/nil",
-                  "widgetData": {},
-                  "code": "nil"
-                }
-              },
-              {
                 "name": "last_modified",
                 "type": "datetime",
                 "mapping": {
@@ -1928,6 +1911,23 @@
                     "text": "last_modified"
                   },
                   "code": "'last_modified'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "path_only"
+                  },
+                  "code": "'path_only'"
                 },
                 "conversion": {
                   "widgetType": "expression/nil",
@@ -2055,6 +2055,23 @@
                 }
               },
               {
+                "name": "number_of_services",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "number_of_services"
+                  },
+                  "code": "'number_of_services'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
                 "name": "unique_services",
                 "type": "any",
                 "mapping": {
@@ -2136,7 +2153,7 @@
       },
       "pos": {
         "x": 106,
-        "y": 170
+        "y": 122
       }
     },
     {
@@ -2157,7 +2174,7 @@
           "comment": {
             "markdown": {
               "text": {
-                "text": "#### INFO\n\nMain processing is down in this step.\nAll \"Run Flow\" steps from each file are manipulated to contain the absolute path and filename, so that the flows and steps can properly linked together\n- the data >> flowPath >> widgetData >> text node is changed to contain the filename only\n- a node \"path\" is added to the data >> flowPath >> widgetData node, which contains the absolute path\n- the result is a list of \"Run Flow\" steps and a list of other steps\n",
+                "text": "#### INFO\n\nMain processing is done in this step.\n\nAll \"Run Flow\" steps from each file are manipulated to contain the absolute path and filename, so that the flows and steps can properly be linked together\n- the data >> flowPath >> widgetData >> text node is changed to contain the filename only\n- a node \"path\" is added to the data >> flowPath >> widgetData node, which contains the absolute path\n- the result is a list of \"Run Flow\" steps and a list of \"other\" steps\n",
                 "syntax": "markdown",
                 "size": {
                   "width": "100%",
@@ -2168,7 +2185,7 @@
                 "width": null,
                 "height": 203
               },
-              "view": "preview"
+              "view": "edit"
             },
             "editor": {
               "collapsed": false
@@ -2390,7 +2407,7 @@
       },
       "pos": {
         "x": 810,
-        "y": 170
+        "y": 122
       }
     },
     {
@@ -2805,7 +2822,7 @@
       },
       "pos": {
         "x": 1082,
-        "y": 330
+        "y": 266
       }
     }
   ],
@@ -2856,21 +2873,6 @@
       }
     },
     {
-      "id": "c84839b7-3c62-4397-b79d-a36b5f8c95fc",
-      "fromStep": "com.twineworks.tweakstreet.library.steps.bool.filter_9014af37-436e-4bd0-8617-6bccab651df6",
-      "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_c9cbaf2e-55da-4165-9757-43e7c0ac201d",
-      "fromGate": "no",
-      "toGate": "in",
-      "disabled": false,
-      "partitioner": {
-        "widgetType": "expression/code",
-        "widgetData": {
-          "text": ""
-        },
-        "code": "nil"
-      }
-    },
-    {
       "id": "46534a0d-b0e6-4dfa-9ed5-6b92b1fc47fd",
       "fromStep": "com.twineworks.tweakstreet.library.steps.map.calculator_732f6329-3b6f-464b-85b6-9d33e28e1de4",
       "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_46e2bde8-b0f6-4d89-89e8-2844a42e6bed",
@@ -2905,6 +2907,21 @@
       "fromStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_2a7a3170-0f64-49b8-987c-1a5b93a062f6",
       "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_cfb63c64-b788-429f-80e7-f6f5b2e2c536",
       "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "ccff2365-68fb-4972-86eb-b36b48805655",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.bool.filter_9014af37-436e-4bd0-8617-6bccab651df6",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.httprequest_c9cbaf2e-55da-4165-9757-43e7c0ac201d",
+      "fromGate": "yes",
       "toGate": "in",
       "disabled": false,
       "partitioner": {

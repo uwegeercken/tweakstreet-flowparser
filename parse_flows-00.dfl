@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.4",
+  "appVersion": "1.14.3",
   "properties": {
     "meta": {
       "comment": {
@@ -52,9 +52,9 @@
               "widgetType": "expression/string",
               "widgetData": {
                 "interpolation": true,
-                "text": "/run/media/uwe/5BDB-2357/development/tweakstreet/tweakstreet-flows"
+                "text": "/home/uwe/development/git/tweakstreet-samples"
               },
-              "code": "'/run/media/uwe/5BDB-2357/development/tweakstreet/tweakstreet-flows'"
+              "code": "'/home/uwe/development/git/tweakstreet-samples'"
             }
           }
         ]
@@ -375,6 +375,22 @@
                     "syntax": "tweakflow"
                   },
                   "code": "in.content[:properties, :services, :services, :list]"
+                }
+              },
+              {
+                "name": "number_of_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "data.size(services)",
+                    "size": {
+                      "width": 0,
+                      "height": 36
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "data.size(services)"
                 }
               },
               {
@@ -758,6 +774,14 @@
                 "field": {
                   "value": {
                     "gate": "in",
+                    "name": "number_of_services"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
                     "name": "unique_services"
                   }
                 }
@@ -798,11 +822,11 @@
       "data": {
         "meta": {
           "name": "Serialize",
-          "showingComment": false,
+          "showingComment": true,
           "comment": {
             "markdown": {
               "text": {
-                "text": "",
+                "text": "##### INFO\n\nWrites all rows to a binary file that the following flows will use.",
                 "syntax": "markdown",
                 "size": {
                   "width": "100%",
@@ -816,7 +840,7 @@
               "view": "edit"
             },
             "editor": {
-              "collapsed": true
+              "collapsed": false
             }
           }
         },
@@ -848,22 +872,6 @@
                 }
               },
               {
-                "name": "path_only",
-                "type": "any",
-                "value": {
-                  "widgetType": "expression/field-value-ref",
-                  "widgetData": {
-                    "fieldSelect": {
-                      "value": {
-                        "gate": "in",
-                        "name": "path_only"
-                      }
-                    }
-                  },
-                  "code": "::in.path_only"
-                }
-              },
-              {
                 "name": "last_modified",
                 "type": "datetime",
                 "value": {
@@ -877,6 +885,22 @@
                     }
                   },
                   "code": "::in.last_modified"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "path_only"
+                      }
+                    }
+                  },
+                  "code": "::in.path_only"
                 }
               },
               {
@@ -989,6 +1013,22 @@
                     }
                   },
                   "code": "::in.services"
+                }
+              },
+              {
+                "name": "number_of_services",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "number_of_services"
+                      }
+                    }
+                  },
+                  "code": "::in.number_of_services"
                 }
               },
               {
@@ -1238,6 +1278,30 @@
                       "widgetType": "expression/string",
                       "widgetData": {
                         "interpolation": true,
+                        "text": "number_of_services"
+                      },
+                      "code": "'number_of_services'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "number_of_services"
+                          }
+                        }
+                      },
+                      "code": "::in.number_of_services"
+                    }
+                  }
+                },
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
                         "text": "number_of_unique_services"
                       },
                       "code": "'number_of_unique_services'"
@@ -1259,7 +1323,7 @@
               ]
             }
           },
-          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}, {\n  :name 'number_of_unique_steps',\n  :value ::in.number_of_unique_steps\n}, {\n  :name 'number_of_unique_services',\n  :value ::in.number_of_unique_services\n}]"
+          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}, {\n  :name 'number_of_unique_steps',\n  :value ::in.number_of_unique_steps\n}, {\n  :name 'number_of_services',\n  :value ::in.number_of_services\n}, {\n  :name 'number_of_unique_services',\n  :value ::in.number_of_unique_services\n}]"
         },
         "editor": {
           "showEntryVariables": false

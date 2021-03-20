@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.4",
+  "appVersion": "1.14.3",
   "properties": {
     "meta": {
       "comment": {
@@ -943,7 +943,7 @@
     },
     {
       "id": "com.twineworks.tweakstreet.library.steps.bool.filter_b80950f9-0244-4df7-877c-cc1b8f402680",
-      "name": "Filter",
+      "name": "Filter: Dataflows only",
       "type": "com.twineworks.tweakstreet.library.steps.bool.filter",
       "instanceCount": {
         "widgetType": "expression/number",
@@ -954,7 +954,7 @@
       },
       "data": {
         "meta": {
-          "name": "Filter",
+          "name": "Filter: Dataflows only",
           "showingComment": false,
           "comment": {
             "markdown": {
@@ -1021,11 +1021,11 @@
       "data": {
         "meta": {
           "name": "Deserialize",
-          "showingComment": false,
+          "showingComment": true,
           "comment": {
             "markdown": {
               "text": {
-                "text": "",
+                "text": "##### INFO\n\nread the binary file that was produced in the previous flow.",
                 "syntax": "markdown",
                 "size": {
                   "width": "100%",
@@ -1039,7 +1039,7 @@
               "view": "edit"
             },
             "editor": {
-              "collapsed": true
+              "collapsed": false
             }
           }
         },
@@ -1072,23 +1072,6 @@
                 }
               },
               {
-                "name": "path_only",
-                "type": "any",
-                "mapping": {
-                  "widgetType": "expression/string",
-                  "widgetData": {
-                    "interpolation": true,
-                    "text": "path_only"
-                  },
-                  "code": "'path_only'"
-                },
-                "conversion": {
-                  "widgetType": "expression/nil",
-                  "widgetData": {},
-                  "code": "nil"
-                }
-              },
-              {
                 "name": "last_modified",
                 "type": "datetime",
                 "mapping": {
@@ -1098,6 +1081,23 @@
                     "text": "last_modified"
                   },
                   "code": "'last_modified'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "path_only",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "path_only"
+                  },
+                  "code": "'path_only'"
                 },
                 "conversion": {
                   "widgetType": "expression/nil",
@@ -1217,6 +1217,23 @@
                     "text": "services"
                   },
                   "code": "'services'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "number_of_services",
+                "type": "any",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "number_of_services"
+                  },
+                  "code": "'number_of_services'"
                 },
                 "conversion": {
                   "widgetType": "expression/nil",
