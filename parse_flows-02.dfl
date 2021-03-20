@@ -1539,7 +1539,7 @@
                 "value": {
                   "widgetType": "expression/text",
                   "widgetData": {
-                    "text": "UNWIND $steps AS step\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  with s, step\n  MATCH (c:Controlflow {name: $filename, path: $path})\n  MATCH (cc:Controlflow {name: split(step.data.flowPath.widgetData.text,\"/\")[-1], path: step.data.flowPath.widgetData.path})\n  MERGE (c)-[:uses]->(cc)\n",
+                    "text": "UNWIND $steps AS step\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  with s, step\n  MATCH (c:Controlflow {name: $filename, path: $path})\n  MATCH (cc:Controlflow {name: split(step.data.flowPath.widgetData.text,\"/\")[-1], path: step.data.flowPath.widgetData.path})\n  MERGE (s)-[:uses]->(cc)\n",
                     "size": {
                       "width": 0,
                       "height": 147
@@ -1548,7 +1548,7 @@
                     "lineSeparator": "\n",
                     "interpolation": true
                   },
-                  "code": "'UNWIND $steps AS step\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  with s, step\n  MATCH (c:Controlflow {name: $filename, path: $path})\n  MATCH (cc:Controlflow {name: split(step.data.flowPath.widgetData.text,\"/\")[-1], path: step.data.flowPath.widgetData.path})\n  MERGE (c)-[:uses]->(cc)\n'"
+                  "code": "'UNWIND $steps AS step\n  MERGE (s:Step {type: split(step.type,\".\")[-1]})\n  with s, step\n  MATCH (c:Controlflow {name: $filename, path: $path})\n  MATCH (cc:Controlflow {name: split(step.data.flowPath.widgetData.text,\"/\")[-1], path: step.data.flowPath.widgetData.path})\n  MERGE (s)-[:uses]->(cc)\n'"
                 }
               },
               {
