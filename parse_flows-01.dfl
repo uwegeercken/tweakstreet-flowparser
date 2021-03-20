@@ -32,7 +32,7 @@
       "dialogWidth": "wide"
     },
     "imports": {
-      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
+      "code": "# import the standard library\n# import core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
       "size": {
         "width": 0,
         "height": 102

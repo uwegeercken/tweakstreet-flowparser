@@ -7,7 +7,7 @@
       "comment": {
         "markdown": {
           "text": {
-            "text": "##### INFO\n\nModule defines variables, keys and nested keys used in a dataflow or controlflow.\n\nDefined here to avoid hardcoding of keys",
+            "text": "##### INFO\n\nModule defines variables, keys and nested keys used in a dataflow or controlflow.\n\nDefined here to avoid hardcoding of keys in the flow and to promote re-usage.",
             "syntax": "markdown",
             "size": {
               "width": "100%",
@@ -175,14 +175,14 @@
             "value": {
               "widgetType": "expression/code",
               "widgetData": {
-                "text": "# the key path is not existing in the file. it is appended to the dict.\n[:data, :flowPath, :widgetData, :path]",
+                "text": "# the key \"path\" is not existing in the dataflow or controlflie file. it is the \n# absolute path to a flow in the Run Flow step. it is appended to the dict\n# because it is used in the cypher query to create a relationship\n[:data, :flowPath, :widgetData, :path]",
                 "size": {
                   "width": 0,
-                  "height": 70
+                  "height": 105
                 },
                 "syntax": "tweakflow"
               },
-              "code": "# the key path is not existing in the file. it is appended to the dict.\n[:data, :flowPath, :widgetData, :path]\n"
+              "code": "# the key \"path\" is not existing in the dataflow or controlflie file. it is the \n# absolute path to a flow in the Run Flow step. it is appended to the dict\n# because it is used in the cypher query to create a relationship\n[:data, :flowPath, :widgetData, :path]\n"
             }
           }
         ]
@@ -200,7 +200,7 @@
       }
     },
     "imports": {
-      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
+      "code": "# import the standard library\n# import core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
       "size": {
         "width": 0,
         "height": 64
