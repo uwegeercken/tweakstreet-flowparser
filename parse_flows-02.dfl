@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.3",
+  "appVersion": "1.15.0",
   "properties": {
     "meta": {
       "comment": {
@@ -228,7 +228,7 @@
                 "value": {
                   "widgetType": "expression/text",
                   "widgetData": {
-                    "text": "MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified\n\n",
+                    "text": "MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified,\n  c.version = $version\n\n",
                     "size": {
                       "width": 0,
                       "height": 159
@@ -237,7 +237,7 @@
                     "lineSeparator": "\n",
                     "interpolation": true
                   },
-                  "code": "'MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified\n\n'"
+                  "code": "'MERGE (c:Controlflow {name: $filename, path: $path})\nset\n  c.unique_steps = $number_of_unique_steps,\n  c.unique_services = $number_of_unique_services,\n  c.last_modified = $last_modified,\n  c.version = $version\n\n'"
                 }
               },
               {
@@ -268,6 +268,28 @@
                               }
                             },
                             "code": "::in.filename"
+                          }
+                        },
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "version"
+                            },
+                            "code": "'version'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "version"
+                                }
+                              }
+                            },
+                            "code": "::in.version"
                           }
                         },
                         {
@@ -361,7 +383,7 @@
                       ]
                     }
                   },
-                  "code": "{\n  'filename' ::in.filename,\n  'path' ::in.path_only,\n  'number_of_unique_steps' ::in.number_of_unique_steps,\n  'number_of_unique_services' ::in.number_of_unique_services,\n  'last_modified' ::in.last_modified\n}"
+                  "code": "{\n  'filename' ::in.filename,\n  'version' ::in.version,\n  'path' ::in.path_only,\n  'number_of_unique_steps' ::in.number_of_unique_steps,\n  'number_of_unique_services' ::in.number_of_unique_services,\n  'last_modified' ::in.last_modified\n}"
                 }
               }
             ]
@@ -1953,6 +1975,23 @@
                 }
               },
               {
+                "name": "version",
+                "type": "string",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "version"
+                  },
+                  "code": "'version'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
                 "name": "isDataflow",
                 "type": "any",
                 "mapping": {
@@ -2196,31 +2235,19 @@
           "variables": {
             "list": [
               {
-                "name": "rowflow_step_type",
-                "type": "any",
-                "value": {
-                  "widgetType": "expression/string",
-                  "widgetData": {
-                    "interpolation": true,
-                    "text": "com.twineworks.tweakstreet.library.steps.map.runflow"
-                  },
-                  "code": "'com.twineworks.tweakstreet.library.steps.map.runflow'"
-                }
-              },
-              {
                 "name": "getStepPath",
                 "type": "any",
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(step) -> data.get_in(step,[:data, :flowPath, :widgetData, :text])",
+                    "text": "(step) -> data.get_in(step,$config.vars.step_key_flowpath)",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "(step) -> data.get_in(step,[:data, :flowPath, :widgetData, :text])"
+                  "code": "(step) -> data.get_in(step,$config.vars.step_key_flowpath)"
                 }
               },
               {
@@ -2277,14 +2304,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(item,filename) -> data.put_in(item,[:data, :flowPath, :widgetData, :text], filename)\n",
+                    "text": "(item,filename) -> data.put_in(item,$config.vars.step_key_flowpath, filename)\n",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "(item,filename) -> data.put_in(item,[:data, :flowPath, :widgetData, :text], filename)"
+                  "code": "(item,filename) -> data.put_in(item,$config.vars.step_key_flowpath, filename)"
                 }
               },
               {
@@ -2309,14 +2336,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)",
+                    "text": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,$config.vars.step_key_flowpath_path, path)",
                     "size": {
                       "width": 0,
                       "height": 67
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,[:data, :flowPath, :widgetData, :path], path)\n"
+                  "code": "# manipulate the individual steps data\n(step,path) -> data.put_in(step,$config.vars.step_key_flowpath_path, path)\n"
                 }
               },
               {
@@ -2328,7 +2355,7 @@
                     "text": "(steps) -> \nfor\n  step <- steps,\n  step_path: getStepPath(step),\n  isRelative: getIsRelative(step_path),\n  step_path_filename: getStepPathFilename(step_path),\n  step_path_path: getStepPathPath(step_path,isRelative),\n  adjusedItem: getAdjustedItem(step,step_path_filename),\n  fullPath: getFullPath(isRelative,step_path_path),\n  getUpdatedStep(step,fullPath)\n\n\n\n\n",
                     "size": {
                       "width": 0,
-                      "height": 128
+                      "height": 231
                     },
                     "syntax": "tweakflow"
                   },
@@ -2341,14 +2368,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "data.filter(in.steps, (step) -> step[:type] == rowflow_step_type)",
+                    "text": "data.filter(in.steps, (step) -> data.get(step,$config.vars.step_key_type) == $config.vars.step_type_runflow)",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "data.filter(in.steps, (step) -> step[:type] == rowflow_step_type)"
+                  "code": "data.filter(in.steps, (step) -> data.get(step,$config.vars.step_key_type) == $config.vars.step_type_runflow)"
                 }
               }
             ]
@@ -2382,14 +2409,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "data.filter(in.steps, (step) -> step[:type] != entry_vars.rowflow_step_type)",
+                    "text": "data.filter(in.steps, (step) -> data.get(step,$config.vars.step_key_type) != $config.vars.step_type_runflow)",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "data.filter(in.steps, (step) -> step[:type] != entry_vars.rowflow_step_type)"
+                  "code": "data.filter(in.steps, (step) -> data.get(step,$config.vars.step_key_type) != $config.vars.step_type_runflow)"
                 }
               }
             ]

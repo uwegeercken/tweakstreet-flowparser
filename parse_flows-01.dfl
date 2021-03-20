@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.3",
+  "appVersion": "1.15.0",
   "properties": {
     "meta": {
       "comment": {
@@ -577,7 +577,7 @@
                 "value": {
                   "widgetType": "expression/text",
                   "widgetData": {
-                    "text": "MERGE (d:Dataflow {name: $filename, path: $path})\nset\n  d.unique_steps = $number_of_unique_steps,\n  d.unique_services = $number_of_unique_services,\n  d.last_modified = $last_modified\n \n",
+                    "text": "MERGE (d:Dataflow {name: $filename, path: $path})\nset\n  d.unique_steps = $number_of_unique_steps,\n  d.unique_services = $number_of_unique_services,\n  d.last_modified = $last_modified,\n  d.version = $version\n \n",
                     "size": {
                       "width": 0,
                       "height": 192
@@ -586,7 +586,7 @@
                     "lineSeparator": "\n",
                     "interpolation": true
                   },
-                  "code": "'MERGE (d:Dataflow {name: $filename, path: $path})\nset\n  d.unique_steps = $number_of_unique_steps,\n  d.unique_services = $number_of_unique_services,\n  d.last_modified = $last_modified\n \n'"
+                  "code": "'MERGE (d:Dataflow {name: $filename, path: $path})\nset\n  d.unique_steps = $number_of_unique_steps,\n  d.unique_services = $number_of_unique_services,\n  d.last_modified = $last_modified,\n  d.version = $version\n \n'"
                 }
               },
               {
@@ -639,6 +639,28 @@
                               }
                             },
                             "code": "::in.path_only"
+                          }
+                        },
+                        {
+                          "key": {
+                            "widgetType": "expression/string",
+                            "widgetData": {
+                              "interpolation": true,
+                              "text": "version"
+                            },
+                            "code": "'version'"
+                          },
+                          "value": {
+                            "widgetType": "expression/field-value-ref",
+                            "widgetData": {
+                              "fieldSelect": {
+                                "value": {
+                                  "gate": "in",
+                                  "name": "version"
+                                }
+                              }
+                            },
+                            "code": "::in.version"
                           }
                         },
                         {
@@ -710,7 +732,7 @@
                       ]
                     }
                   },
-                  "code": "{\n  'filename' ::in.filename,\n  'path' ::in.path_only,\n  'number_of_unique_steps' ::in.number_of_unique_steps,\n  'number_of_unique_services' ::in.number_of_unique_services,\n  'last_modified' ::in.last_modified\n}"
+                  "code": "{\n  'filename' ::in.filename,\n  'path' ::in.path_only,\n  'version' ::in.version,\n  'number_of_unique_steps' ::in.number_of_unique_steps,\n  'number_of_unique_services' ::in.number_of_unique_services,\n  'last_modified' ::in.last_modified\n}"
                 }
               }
             ]
@@ -771,10 +793,10 @@
         "authPassword": {
           "widgetType": "expression/password",
           "widgetData": {
-            "text": "encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q==",
+            "text": "encrypted: DDRwHVZjZRtr70VYIURO2mc34YbyVSQMM/U7Q23SdoNxExk2aw==",
             "encrypted": true
           },
-          "code": "'encrypted: DLdp/xMKY6XLOTdXgA4LcDQ1nOlouElbnBtcip+9ex+695hk1Q=='"
+          "code": "'encrypted: DDRwHVZjZRtr70VYIURO2mc34YbyVSQMM/U7Q23SdoNxExk2aw=='"
         },
         "oauth": {
           "widgetType": "expression/oauth-ref",
@@ -1115,6 +1137,23 @@
                     "text": "filename"
                   },
                   "code": "'filename'"
+                },
+                "conversion": {
+                  "widgetType": "expression/nil",
+                  "widgetData": {},
+                  "code": "nil"
+                }
+              },
+              {
+                "name": "version",
+                "type": "string",
+                "mapping": {
+                  "widgetType": "expression/string",
+                  "widgetData": {
+                    "interpolation": true,
+                    "text": "version"
+                  },
+                  "code": "'version'"
                 },
                 "conversion": {
                   "widgetType": "expression/nil",

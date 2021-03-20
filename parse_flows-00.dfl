@@ -1,6 +1,6 @@
 {
   "type": "data-flow",
-  "appVersion": "1.14.3",
+  "appVersion": "1.15.0",
   "properties": {
     "meta": {
       "comment": {
@@ -32,7 +32,7 @@
       "dialogWidth": "wide"
     },
     "imports": {
-      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\nimport json from 'tweakstreet/json';",
+      "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\nimport json from 'tweakstreet/json';\n\n",
       "size": {
         "width": 0,
         "height": 102
@@ -262,14 +262,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(steps) -> \nfor\n  step <- steps,\n  type: step[:type],\n  strings.substring(type,strings.last_index_of(type,'.')+1)\n  \n\n\n\n",
+                    "text": "(steps) -> \nfor\n  step <- steps,\n  type: data.get(step,$config.vars.step_key_type),\n  strings.substring(type,strings.last_index_of(type,'.')+1)\n  \n\n\n\n",
                     "size": {
                       "width": 0,
                       "height": 126
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "(steps) -> \nfor\n  step <- steps,\n  type: step[:type],\n  strings.substring(type,strings.last_index_of(type,'.')+1)"
+                  "code": "(steps) -> \nfor\n  step <- steps,\n  type: data.get(step,$config.vars.step_key_type),\n  strings.substring(type,strings.last_index_of(type,'.')+1)"
                 }
               },
               {
@@ -278,14 +278,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "(services) -> \nfor\n  service <- services,\n  service[:category]\n  \n  \n\n\n\n",
+                    "text": "(services) -> \nfor\n  service <- services,\n  data.get(service,$config.vars.service_key_category)\n  \n  \n\n\n\n",
                     "size": {
                       "width": 0,
                       "height": 99
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "((services) -> \nfor\n  service <- services,\n  service[:category])"
+                  "code": "(services) -> \nfor\n  service <- services,\n  data.get(service,$config.vars.service_key_category)"
                 }
               }
             ]
@@ -303,14 +303,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "in.content[:steps]",
+                    "text": "data.get(in.content,$config.vars.data_flow_key_steps)",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "in.content[:steps]"
+                  "code": "data.get(in.content,$config.vars.data_flow_key_steps)"
                 }
               },
               {
@@ -367,14 +367,14 @@
                 "value": {
                   "widgetType": "expression/code",
                   "widgetData": {
-                    "text": "in.content[:properties, :services, :services, :list]",
+                    "text": "data.get_in(in.content,$config.vars.dataflow_key_services)",
                     "size": {
                       "width": 0,
                       "height": 36
                     },
                     "syntax": "tweakflow"
                   },
-                  "code": "in.content[:properties, :services, :services, :list]"
+                  "code": "data.get_in(in.content,$config.vars.dataflow_key_services)"
                 }
               },
               {
@@ -439,7 +439,7 @@
         "model": {}
       },
       "pos": {
-        "x": 554,
+        "x": 810,
         "y": 202
       }
     },
@@ -726,6 +726,14 @@
                 "field": {
                   "value": {
                     "gate": "in",
+                    "name": "version"
+                  }
+                }
+              },
+              {
+                "field": {
+                  "value": {
+                    "gate": "in",
                     "name": "isDataflow"
                   }
                 }
@@ -804,7 +812,7 @@
         "model": {}
       },
       "pos": {
-        "x": 746,
+        "x": 1002,
         "y": 202
       }
     },
@@ -917,6 +925,22 @@
                     }
                   },
                   "code": "::in.filename"
+                }
+              },
+              {
+                "name": "version",
+                "type": "string",
+                "value": {
+                  "widgetType": "expression/field-value-ref",
+                  "widgetData": {
+                    "fieldSelect": {
+                      "value": {
+                        "gate": "in",
+                        "name": "version"
+                      }
+                    }
+                  },
+                  "code": "::in.version"
                 }
               },
               {
@@ -1118,7 +1142,7 @@
         "model": {}
       },
       "pos": {
-        "x": 922,
+        "x": 1178,
         "y": 202
       }
     },
@@ -1230,6 +1254,30 @@
                       "widgetType": "expression/string",
                       "widgetData": {
                         "interpolation": true,
+                        "text": "version"
+                      },
+                      "code": "'version'"
+                    },
+                    "value": {
+                      "widgetType": "expression/field-value-ref",
+                      "widgetData": {
+                        "fieldSelect": {
+                          "value": {
+                            "gate": "in",
+                            "name": "version"
+                          }
+                        }
+                      },
+                      "code": "::in.version"
+                    }
+                  }
+                },
+                {
+                  "fields": {
+                    "name": {
+                      "widgetType": "expression/string",
+                      "widgetData": {
+                        "interpolation": true,
                         "text": "number_of_steps"
                       },
                       "code": "'number_of_steps'"
@@ -1323,7 +1371,7 @@
               ]
             }
           },
-          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}, {\n  :name 'number_of_unique_steps',\n  :value ::in.number_of_unique_steps\n}, {\n  :name 'number_of_services',\n  :value ::in.number_of_services\n}, {\n  :name 'number_of_unique_services',\n  :value ::in.number_of_unique_services\n}]"
+          "code": "[{\n  :name 'path',\n  :value ::in.path\n}, {\n  :name 'version',\n  :value ::in.version\n}, {\n  :name 'number_of_steps',\n  :value ::in.number_of_steps\n}, {\n  :name 'number_of_unique_steps',\n  :value ::in.number_of_unique_steps\n}, {\n  :name 'number_of_services',\n  :value ::in.number_of_services\n}, {\n  :name 'number_of_unique_services',\n  :value ::in.number_of_unique_services\n}]"
         },
         "editor": {
           "showEntryVariables": false
@@ -1331,27 +1379,92 @@
         "model": {}
       },
       "pos": {
-        "x": 938,
+        "x": 1194,
         "y": 346
+      }
+    },
+    {
+      "id": "com.twineworks.tweakstreet.library.steps.map.calculator_b7c49099-ea75-4e13-b7aa-6624af46a550",
+      "name": "Calculator: flow info",
+      "type": "com.twineworks.tweakstreet.library.steps.map.calculator",
+      "instanceCount": {
+        "widgetType": "expression/number",
+        "widgetData": {
+          "text": "1"
+        },
+        "code": "1"
+      },
+      "data": {
+        "meta": {
+          "name": "Calculator: flow info",
+          "showingComment": false,
+          "comment": {
+            "markdown": {
+              "text": {
+                "text": "",
+                "syntax": "markdown",
+                "size": {
+                  "width": "100%",
+                  "height": "100%"
+                }
+              },
+              "size": {
+                "width": null,
+                "height": 160
+              },
+              "view": "edit"
+            },
+            "editor": {
+              "collapsed": true
+            }
+          }
+        },
+        "entryVariables": {
+          "variables": {
+            "list": []
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "outputFields": {
+          "outputFields": {
+            "list": [
+              {
+                "name": "version",
+                "type": "any",
+                "value": {
+                  "widgetType": "expression/code",
+                  "widgetData": {
+                    "text": "if in.content[:appVersion] != nil \nthen in.content[:appVersion] \nelse '[undefined]'",
+                    "size": {
+                      "width": 0,
+                      "height": 183
+                    },
+                    "syntax": "tweakflow"
+                  },
+                  "code": "if in.content[:appVersion] != nil \nthen in.content[:appVersion] \nelse '[undefined]'"
+                }
+              }
+            ]
+          },
+          "editor": {
+            "collapsed": false
+          }
+        },
+        "editor": {
+          "showEntryVariables": true,
+          "showOutputFields": true
+        },
+        "model": {}
+      },
+      "pos": {
+        "x": 570,
+        "y": 202
       }
     }
   ],
   "hops": [
-    {
-      "id": "b56174f2-667d-4eeb-8681-b62c04cc646c",
-      "fromStep": "com.twineworks.tweakstreet.library.steps.map.readfile_6099dfac-b0b0-4ab3-801d-5322666ac83f",
-      "toStep": "com.twineworks.tweakstreet.library.steps.map.calculator_a6a1e4c6-345c-4f04-9083-66898a8a8219",
-      "fromGate": "out",
-      "toGate": "in",
-      "disabled": false,
-      "partitioner": {
-        "widgetType": "expression/code",
-        "widgetData": {
-          "text": ""
-        },
-        "code": "nil"
-      }
-    },
     {
       "id": "7df6b3e0-18b3-43c2-8014-670b16162666",
       "fromStep": "com.twineworks.tweakstreet.library.steps.input.getfiles_6a997fc8-9523-40c8-8a96-235af1360534",
@@ -1401,6 +1514,36 @@
       "id": "b5d2c7f2-d14c-45e8-b516-718a27b696a9",
       "fromStep": "com.twineworks.tweakstreet.library.steps.map.pickfields_486d6668-321e-4de1-b283-e65623a69d55",
       "toStep": "com.twineworks.tweakstreet.library.steps.map.logger_6e6731d9-d7ed-4848-b7f6-059be2036cee",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "03a93975-9659-4ef9-bb50-fc6b6697bc60",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.readfile_6099dfac-b0b0-4ab3-801d-5322666ac83f",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.calculator_b7c49099-ea75-4e13-b7aa-6624af46a550",
+      "fromGate": "out",
+      "toGate": "in",
+      "disabled": false,
+      "partitioner": {
+        "widgetType": "expression/code",
+        "widgetData": {
+          "text": ""
+        },
+        "code": "nil"
+      }
+    },
+    {
+      "id": "499895aa-5ad3-42bf-8b06-47763248d59a",
+      "fromStep": "com.twineworks.tweakstreet.library.steps.map.calculator_b7c49099-ea75-4e13-b7aa-6624af46a550",
+      "toStep": "com.twineworks.tweakstreet.library.steps.map.calculator_a6a1e4c6-345c-4f04-9083-66898a8a8219",
       "fromGate": "out",
       "toGate": "in",
       "disabled": false,

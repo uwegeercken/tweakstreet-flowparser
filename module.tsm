@@ -1,13 +1,13 @@
 {
   "type": "module",
-  "appVersion": "1.14.3",
+  "appVersion": "1.15.0",
   "properties": {
     "meta": {
       "showingComment": true,
       "comment": {
         "markdown": {
           "text": {
-            "text": "",
+            "text": "##### INFO\n\nModule defines variables, keys and nested keys used in a dataflow or controlflow.\n\nDefined here to avoid hardcoding of keys",
             "syntax": "markdown",
             "size": {
               "width": "100%",
@@ -21,88 +21,168 @@
           "view": "edit"
         },
         "editor": {
-          "collapsed": true
+          "collapsed": false
         }
       },
-      "role": "normal"
+      "role": "config"
     },
     "variables": {
       "variables": {
         "list": [
           {
-            "name": "test1",
+            "name": "step_type_runflow",
             "type": "any",
             "value": {
               "widgetType": "expression/string",
               "widgetData": {
                 "interpolation": true,
-                "text": "appVersion.test1.test2"
+                "text": "com.twineworks.tweakstreet.library.steps.map.runflow"
               },
-              "code": "'appVersion.test1.test2'"
+              "code": "'com.twineworks.tweakstreet.library.steps.map.runflow'"
             }
           },
           {
-            "name": "name_2",
+            "name": "data_flow_key_appversion",
             "type": "any",
             "value": {
               "widgetType": "expression/code",
               "widgetData": {
-                "text": "(x) ->\nfor \n  p <- strings.split(x,'.'),\n  [:'p']\n  ",
-                "size": {
-                  "width": 0,
-                  "height": 115
-                },
-                "syntax": "tweakflow"
-              },
-              "code": "((x) ->\nfor \n  p <- strings.split(x,'.'),\n  [:'p'])"
-            }
-          },
-          {
-            "name": "dataflow_structure",
-            "type": "any",
-            "value": {
-              "widgetType": "expression/code",
-              "widgetData": {
-                "text": "{\n  :appVersion {\n    :test1 {\n        :name 'abc',\n        :test2 {\n          :name 'gaga'\n        }\n    }\n  }\n}",
-                "size": {
-                  "width": 0,
-                  "height": 215
-                },
-                "syntax": "tweakflow"
-              },
-              "code": "{\n  :appVersion {\n    :test1 {\n        :name 'abc',\n        :test2 {\n          :name 'gaga'\n        }\n    }\n  }\n}"
-            }
-          },
-          {
-            "name": "name_1",
-            "type": "any",
-            "value": {
-              "widgetType": "expression/code",
-              "widgetData": {
-                "text": "name_2(test1)",
+                "text": ":appVersion",
                 "size": {
                   "width": 0,
                   "height": 36
                 },
                 "syntax": "tweakflow"
               },
-              "code": "name_2(test1)"
+              "code": ":appVersion"
             }
           },
           {
-            "name": "name_3",
+            "name": "data_flow_key_properties",
             "type": "any",
             "value": {
               "widgetType": "expression/code",
               "widgetData": {
-                "text": "dataflow_structure(name_1)",
+                "text": ":properties",
                 "size": {
                   "width": 0,
                   "height": 36
                 },
                 "syntax": "tweakflow"
               },
-              "code": "dataflow_structure(name_1)"
+              "code": ":properties"
+            }
+          },
+          {
+            "name": "dataflow_key_services",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": "[:properties, :services, :services, :list]",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": "[:properties, :services, :services, :list]"
+            }
+          },
+          {
+            "name": "data_flow_key_steps",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": ":steps",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": ":steps"
+            }
+          },
+          {
+            "name": "data_flow_key_hops",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": ":hops",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": ":hops"
+            }
+          },
+          {
+            "name": "step_key_type",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": ":type",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": ":type"
+            }
+          },
+          {
+            "name": "service_key_category",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": ":category",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": ":category"
+            }
+          },
+          {
+            "name": "step_key_flowpath",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": "[:data, :flowPath, :widgetData, :text]",
+                "size": {
+                  "width": 0,
+                  "height": 36
+                },
+                "syntax": "tweakflow"
+              },
+              "code": "[:data, :flowPath, :widgetData, :text]"
+            }
+          },
+          {
+            "name": "step_key_flowpath_path",
+            "type": "any",
+            "value": {
+              "widgetType": "expression/code",
+              "widgetData": {
+                "text": "# the key path is not existing in the file. it is appended to the dict.\n[:data, :flowPath, :widgetData, :path]",
+                "size": {
+                  "width": 0,
+                  "height": 70
+                },
+                "syntax": "tweakflow"
+              },
+              "code": "# the key path is not existing in the file. it is appended to the dict.\n[:data, :flowPath, :widgetData, :path]\n"
             }
           }
         ]
@@ -123,7 +203,7 @@
       "code": "# import the standard library\nimport core, data, strings, time, math, fun, locale, regex, bin, decimals from 'std';\n",
       "size": {
         "width": 0,
-        "height": 102
+        "height": 64
       },
       "editor": {
         "collapsed": false
