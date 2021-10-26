@@ -18,8 +18,11 @@ Steps is a distinct list of steps (not all steps found). Relations are created b
 - Controlflows and Services
 - Dataflows and Services
 
-The module.tsm file defines the relevant keys in the flowfile and is required. In the Tweakstreet GUI select "File" >> "Choose Config Module" from the menu. When using the commandline engine.sh script, 
-pass the module like this: ./engine.sh -g module.tsm 
+Here is a sample flow:
+![overview-neo4j-bloom](https://user-images.githubusercontent.com/6207140/138931974-88e10462-dc41-48b9-802e-fbbd9e529f2e.png)
+
+
+The module.tsm file defines the relevant keys in the flowfile and is required. In the Tweakstreet GUI select "File" >> "Choose Config Module" from the menu. When using the commandline engine.sh script,pass the module like this: ./engine.sh -g module.tsm 
 
 You will need a Neo4j database running, so you can run the flow.
 
